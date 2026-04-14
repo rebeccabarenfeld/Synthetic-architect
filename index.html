@@ -85,7 +85,91 @@
     },
   }
 </script>
-<style>
+ <style>
+    /* ── Variables de base (fallbacks) ─────────────────────── */
+    :root {
+      --lp-font-size-body:      16px;
+      --lp-line-height:         1.7;
+      --lp-section-padding:     4rem 0;
+      --lp-cta-size:            1.05rem;
+      --lp-hero-headline-size:  clamp(2rem, 4vw, 3.2rem);
+      --lp-content-width:       700px;
+      --lp-animation-speed:     0.35s;
+      --lp-summary-display:     block;
+      --lp-longform-display:    block;
+ 
+      /* Tes couleurs (à adapter) */
+      --lp-accent:   #1a1a1a;
+      --lp-bg:       #ffffff;
+      --lp-text:     #1a1a1a;
+      --lp-highlight: #your-brand-color;
+    }
+ 
+    /* ── Applique les variables au body ─────────────────────── */
+    body {
+      font-size: var(--lp-font-size-body);
+      line-height: var(--lp-line-height);
+    }
+ 
+    .lp-hero h1 {
+      font-size: var(--lp-hero-headline-size);
+    }
+ 
+    section {
+      padding: var(--lp-section-padding);
+    }
+ 
+    .container {
+      max-width: var(--lp-content-width);
+      margin: 0 auto;
+    }
+ 
+    /* ── Overrides device ────────────────────────────────────── */
+    [data-device="mobile"] .lp-desktop-only { display: none; }
+    [data-device="desktop"] .lp-mobile-only { display: none; }
+ 
+    /* ── Overrides connexion lente ───────────────────────────── */
+    [data-conn="slow"] img,
+    [data-conn="datasaver"] img {
+      /* le JS peut swapper les src pour des versions légères */
+      content-visibility: auto;
+    }
+ 
+    /* ── Overrides profil comportemental ─────────────────────── */
+ 
+    /* SCANNER: contenu condensé, CTA bien visible */
+    [data-profile="scanner"] .lp-longform   { display: none; }
+    [data-profile="scanner"] .lp-cta-main   { font-size: 1.1rem; }
+    [data-profile="scanner"] .lp-summary    { display: block; }
+ 
+    /* READER: tout affiché, espacement généreux */
+    [data-profile="reader"] .lp-longform    { display: block; }
+    [data-profile="reader"] .lp-summary     { display: none; }
+ 
+    /* EVALUATOR: tout visible, preuves sociales en avant */
+    [data-profile="evaluator"] .lp-proof    { order: -1; }
+ 
+    /* BOUNCER: headline ultra-visible, friction réduite */
+    [data-profile="bouncer"] .lp-secondary  { display: none; }
+    [data-profile="bouncer"] .lp-hero h1    { font-size: clamp(2.5rem, 6vw, 4.5rem); }
+ 
+    /* ── Dark mode système ───────────────────────────────────── */
+    [data-theme="dark"] {
+      --lp-bg:   #0f0f0f;
+      --lp-text: #f0f0f0;
+    }
+ 
+    /* ── Reduced motion ──────────────────────────────────────── */
+    [data-motion="reduced"] * {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+ 
+    /* ── Returning visitors ──────────────────────────────────── */
+    [data-visit="new"]       .lp-returning-msg { display: none; }
+    [data-visit="returning"] .lp-new-visitor-intro { display: none; }
+    [data-visit="loyal"]     .lp-loyalty-offer { display: block; }
+
   .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
   }
